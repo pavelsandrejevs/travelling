@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Dream Trips</title>
+        <link rel="stylesheet" th:href="@{/styles.css}" />
+    </head>
+
+    <body>
+        <h1>Design your trip!</h1>
+        <img th:src="@{/images/travelling.jpg}"/>
+
+        <form method="POST" th:object="${trip}">
+            <div class="grid">
+                <div class="extra-group" id="foods">
+                    <h3>Food arrangements:</h3>
+                    <div th:each="extra : ${food}">
+                        <input th:field="*{extras}" type="checkbox" 
+                                th:value="${extra.id}"/>
+                        <span th:text="${extra.name}">EXTRA</span><br/>
+                    </div>
+                </div>
+                <div class="extra-group" id="sleepings">
+                    <h3>Sleeping arrangements:</h3>
+                    <div th:each="extra : ${sleeping}">
+                        <input th:field="*{extras}" type="checkbox" 
+                                th:value="${extra.id}"/>
+                        <span th:text="${extra.name}">EXTRA</span><br/>
+                    </div>
+                </div>
+            </div>
+
+            <div>
+                <h3>Name your trip:</h3>
+                <input type="text" th:field="*{name}"/>
+                <br/>
+                <button>Submit Your Trip</button>
+            </div>
+        </form>
+    </body>
+</html>
