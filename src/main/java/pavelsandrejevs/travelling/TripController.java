@@ -7,12 +7,14 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import pavelsandrejevs.travelling.Extra;
 import pavelsandrejevs.travelling.Extra.Type;
@@ -66,8 +68,20 @@ public class TripController {
         return "tripForm";
     }
 
+    /* 
     @PostMapping
     public String processTrip(Trip trip, @ModelAttribute Order order) {
+        order.addTrip(trip);
+        log.info("Processing trip: {}", trip);
+        return "redirect:/orders/current";
+    }
+    */
+
+    @PostMapping
+    public String processTrip(@Valid Trip trip, Errors errors, @ModelAttribute Order order) {
+        if (errors.hasErrors()) {
+            return "tripForm";
+        }
         order.addTrip(trip);
         log.info("Processing trip: {}", trip);
         return "redirect:/orders/current";

@@ -9,20 +9,20 @@
 
     <body>
         <form method="POST" th:action="@{/orders}" th:object="${order}">
-            <h1>Reserve your dream trip!</h1>
+            <h1>Create your dream trip!</h1>
 
             <img th:src="@{/images/travelling.jpg}"/>
 
             <h3>Your trips in this order:</h3>
-            <a th:href="@{/trips}" id="another">Design another trip</a>
-            <br/>
             <ul>
                 <li th:each="trip : ${order.trips}">
                     <span th:text="${trip.name}">trip name</span>
                 </li>
             </ul>
+            <a th:href="@{/trips}" id="another">Create another trip</a>
 
             <div th:if="${#fields.hasErrors()}">
+                <br/>
                 <span class="validationError">
                     Please correct the problems below and resubmit.
                 </span>

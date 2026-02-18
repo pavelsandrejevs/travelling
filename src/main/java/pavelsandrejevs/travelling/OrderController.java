@@ -23,18 +23,19 @@ public class OrderController {
     public String showOrderForm() {
         return "orderForm";
     }
-    
+
+    /*
     @PostMapping
     public String processOrder(Order order,
             SessionStatus sessionStatus) {
         log.info("Order submitted: {}", order);
         sessionStatus.setComplete();
-        //return "redirect:/home.html";
-        //return "redirect:/";
-        return "home";
+        return "redirect:/";
+        //return "home";
     }
+    */
     
-/* 
+
     @PostMapping
     public String processOrder(@Valid Order order, Errors errors,
             SessionStatus sessionStatus) {
@@ -47,5 +48,5 @@ public class OrderController {
 
         return "redirect:/";
     }
-*/
+
 }

@@ -1,16 +1,33 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
+    
     <head>
         <title>Dream Trips</title>
         <link rel="stylesheet" th:href="@{/styles.css}" />
     </head>
 
     <body>
-        <h1>Design your trip!</h1>
+        <h1>Create your trip!</h1>
         <img th:src="@{/images/travelling.jpg}"/>
 
+        <div th:if="${order.trips.size() > 0}">
+            <h3>Your created trips:</h3>
+            <ul>
+                <li th:each="trip : ${order.trips}">
+                    <span th:text="${trip.name}">trip name</span>
+                </li>
+            </ul>
+        </div>
+
         <form method="POST" th:object="${trip}">
+
+            <div th:if="${#fields.hasErrors()}">
+                <span class="validationError">
+                    Please correct the problems below and resubmit.
+                </span>
+            </div>
+
             <div class="grid">
                 <div class="extra-group" id="foods">
                     <h3>Food arrangements:</h3>
@@ -20,6 +37,7 @@
                         <span th:text="${extra.name}">EXTRA</span><br/>
                     </div>
                 </div>
+
                 <div class="extra-group" id="sleepings">
                     <h3>Sleeping arrangements:</h3>
                     <div th:each="extra : ${sleeping}">
@@ -30,10 +48,18 @@
                 </div>
             </div>
 
+            <br/>
+            <span class="validationError"
+                th:if="${#fields.hasErrors('extras')}"
+                th:errors="*{extras}">Extras Error</span>
+
             <div>
                 <h3>Name your trip:</h3>
                 <input type="text" th:field="*{name}"/>
-                <br/>
+                <span class="validationError"
+                    th:if="${#fields.hasErrors('name')}"
+                    th:errors="*{name}">Name Error</span>
+                    <br/>
                 <button>Submit Your Trip</button>
             </div>
         </form>
